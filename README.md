@@ -28,7 +28,7 @@ H2 Console can be viewed at --  http://localhost:8080/h2-console/
 * [Spring](https://spring.io/projects/spring-boot) - The Spring framework used
 * [Maven](https://maven.apache.org/) - Dependency Management
 * [Jersey](https://jersey.github.io/) - the JAX-RS Reference Implementation
-* [Hibernate] (https://hibernate.org/orm/documentation/5.0/) - ORM for JPA 2.2 specification
+* [Hibernate](https://hibernate.org/orm/documentation/5.0/) - ORM for JPA 2.2 specification
 
 ## Authors
 
