@@ -15,11 +15,11 @@ Following tests can be invoked using a Rest Client like Postman --
 
 GET - http://localhost:8080/emp/1101
 
-POST - localhost:8080/emp/create/emp
+POST - localhost:8080/emp/emp
 
-PUT - localhost:8080/emp/update/emp
+PUT - localhost:8080/emp/emp
 
-DEL - localhost:8080/emp/delete/1
+DEL - localhost:8080/emp/1
 
 ## Deployment
 
