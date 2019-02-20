@@ -14,6 +14,7 @@ See deployment for notes on how to deploy the project on a live system.
 Following tests can be invoked using a Rest Client like Postman --
 
 GET - http://localhost:8080/emp/1101
+GET - http://localhost:8080/emp/query?deptId=15
 
 POST - localhost:8080/emp/emp
 

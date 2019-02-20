@@ -3,11 +3,13 @@ package com.jaxrs.poc.resource;
 import com.jaxrs.poc.model.Employee;
 import com.jaxrs.poc.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.List;
 
 @Path("/emp")
 public class EmployeeResource {
@@ -22,6 +24,19 @@ public class EmployeeResource {
     public Employee getEmployee(@PathParam("empId") int empId) {
        Employee emp = service.getEmployeeById(empId);
        return emp;
+    }
+
+    @GET
+    @Path("/query")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getEmployeesByCriteria(@QueryParam("deptId") int deptId,
+                                                @QueryParam("salary") long salary) {
+        List<Employee> empList = service.getEmployeesByCriteria(deptId, salary);
+        if(!CollectionUtils.isEmpty(empList))
+            return Response.status(200).entity(empList).build();
+        else
+            return Response.status(204).build();
+
     }
 
     /*Creates a new Employee */

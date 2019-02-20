@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional
 public class EmployeeService {
@@ -15,6 +17,10 @@ public class EmployeeService {
 
     public Employee getEmployeeById(int id) {
         return dao.getOne(id);
+    }
+
+    public List<Employee> getEmployeesByCriteria(int deptId, long salary) {
+        return dao.getEmployeesByCriteria(deptId);
     }
 
     public Employee createEmployee(Employee emp) {
