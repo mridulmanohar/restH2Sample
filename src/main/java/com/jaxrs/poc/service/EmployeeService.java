@@ -10,23 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class EmployeeService {
 
-    /*@Autowired
-    EmployeeDAOImpl dao;*/
-
     @Autowired
     EmployeeDAO dao;
-
-    /*public Employee getEmployeeById(int id) {
-        return dao.getEmployeeById(id);
-    }
-
-    public Employee createEmployee(Employee emp) {
-         return dao.createEmployee(emp);
-    }
-
-    public Employee updateEmployee(Employee emp) {
-        return dao.updateEmployee(emp);
-    }*/
 
     public Employee getEmployeeById(int id) {
         return dao.getOne(id);
