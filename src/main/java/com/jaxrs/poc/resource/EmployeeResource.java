@@ -26,7 +26,7 @@ public class EmployeeResource {
 
     /*Creates a new Employee */
     @POST
-    @Path("/create/{emp}")
+    @Path("/{emp}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Response createEmployee(@RequestBody Employee emp) {
@@ -36,7 +36,7 @@ public class EmployeeResource {
 
     /*Modify/Update an existing employee*/
     @PUT
-    @Path("/update/{emp}")
+    @Path("/{emp}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Response updateEmployee(@RequestBody Employee emp) {
@@ -47,7 +47,7 @@ public class EmployeeResource {
 
     /*Deletes an existing employee by its empId*/
     @DELETE
-    @Path("/delete/{empId}")
+    @Path("/{empId}")
     public Response deleteEmployee(@PathParam("empId") int empId) {
         service.deleteEmployeeById(empId);
         return Response.status(200).build();
