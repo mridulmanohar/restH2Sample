@@ -1,6 +1,6 @@
-# rest-H2 Example
+# Jersey REST-H2 Example
 
-A complete REST Server application created with Spring Boot 2.1.2 and Jersey 2.27
+A complete REST Server application created with Spring BOOT 2.1.2 and Jersey 2.27
 uses hibernate 5.3.7 to interact with underlying H2 database
 
 ## Getting Started
@@ -14,8 +14,11 @@ See deployment for notes on how to deploy the project on a live system.
 Following tests can be invoked using a Rest Client like Postman --
 
 GET - http://localhost:8080/emp/1101
+
 POST - localhost:8080/emp/create/emp
+
 PUT - localhost:8080/emp/update/emp
+
 DEL - localhost:8080/emp/delete/1
 
 ## Deployment
@@ -34,11 +37,10 @@ H2 Console can be viewed at --  http://localhost:8080/h2-console/
 
 * **Mridul Manohar** - [mridul](https://github.com/mridulmanohar)
 
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
 
 ## Acknowledgments
 
-* Hat tip to anyone whose code was used
+* Hat tip to all the tutorials I went through
 * Inspiration
 * etc
 
