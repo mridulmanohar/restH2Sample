@@ -11,11 +11,18 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
 
-@Path("/emp")
+@Path("/employees")
 public class EmployeeResource {
 
     @Autowired
     EmployeeService service;
+
+    /*Fetches all employees in DB*/
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Employee> getAllEmployees() {
+        return service.getAllEmployees();
+    }
 
     /*Fetches an employee by it's empId*/
     @GET
@@ -31,6 +38,9 @@ public class EmployeeResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getEmployeesByCriteria(@QueryParam("deptId") int deptId,
                                                 @QueryParam("salary") long salary) {
+        if(deptId == 0)
+            return Response.status(400).build();
+
         List<Employee> empList = service.getEmployeesByCriteria(deptId, salary);
         if(!CollectionUtils.isEmpty(empList))
             return Response.status(200).entity(empList).build();
@@ -41,7 +51,6 @@ public class EmployeeResource {
 
     /*Creates a new Employee */
     @POST
-    @Path("/{emp}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Response createEmployee(@RequestBody Employee emp) {
@@ -51,10 +60,11 @@ public class EmployeeResource {
 
     /*Modify/Update an existing employee*/
     @PUT
-    @Path("/{emp}")
+    @Path("/{empId}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public Response updateEmployee(@RequestBody Employee emp) {
+    public Response updateEmployee(@PathParam("empId") int empId, @RequestBody Employee emp) {
+        emp.setEmpId(empId);
         emp = service.updateEmployee(emp);
         return Response.status(200).entity(emp).build();
     }

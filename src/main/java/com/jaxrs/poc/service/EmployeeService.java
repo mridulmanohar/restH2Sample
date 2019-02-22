@@ -15,6 +15,10 @@ public class EmployeeService {
     @Autowired
     EmployeeDAO dao;
 
+    public List<Employee> getAllEmployees() {
+        return dao.findAll();
+    }
+
     public Employee getEmployeeById(int id) {
         return dao.getOne(id);
     }
