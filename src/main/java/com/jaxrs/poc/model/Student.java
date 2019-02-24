@@ -1,36 +1,41 @@
 package com.jaxrs.poc.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.Proxy;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
+import java.util.List;
 
 @Entity
 @Proxy(lazy = false)
+@XmlRootElement
 public class Student {
     @Id
     @GeneratedValue
-    private int rollNumber;
+    private int studentId;
 
     private String studentName;
     private int standard;
 
-    @Column(nullable = true)
-    private int rank;
-
-    private String teacherName;
+    private String classTeacher;
 
     @Column(nullable = false)
     private String schoolName;
 
-    public int getRollNumber() {
-        return rollNumber;
+    @Column(nullable = true)
+    private int rank;
+
+    @OneToMany(mappedBy="student", fetch = FetchType.EAGER, orphanRemoval = true, cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private List<Marks> marks;
+
+    public int getStudentId() {
+        return studentId;
     }
 
-    public void setRollNumber(int rollNumber) {
-        this.rollNumber = rollNumber;
+    public void setStudentId(int studentId) {
+        this.studentId = studentId;
     }
 
     public String getStudentName() {
@@ -49,20 +54,12 @@ public class Student {
         this.standard = standard;
     }
 
-    public int getRank() {
-        return rank;
+    public String getClassTeacher() {
+        return classTeacher;
     }
 
-    public void setRank(int rank) {
-        this.rank = rank;
-    }
-
-    public String getTeacherName() {
-        return teacherName;
-    }
-
-    public void setTeacherName(String teacherName) {
-        this.teacherName = teacherName;
+    public void setClassTeacher(String classTeacher) {
+        this.classTeacher = classTeacher;
     }
 
     public String getSchoolName() {
@@ -71,5 +68,21 @@ public class Student {
 
     public void setSchoolName(String schoolName) {
         this.schoolName = schoolName;
+    }
+
+    public int getRank() {
+        return rank;
+    }
+
+    public void setRank(int rank) {
+        this.rank = rank;
+    }
+
+    public List<Marks> getMarks() {
+        return marks;
+    }
+
+    public void setMarks(List<Marks> marks) {
+        this.marks = marks;
     }
 }

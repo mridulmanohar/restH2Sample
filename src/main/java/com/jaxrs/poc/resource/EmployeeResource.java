@@ -11,6 +11,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
 
+import static javax.ws.rs.core.Response.Status.*;
+
 @Path("/employees")
 public class EmployeeResource {
 
@@ -19,54 +21,61 @@ public class EmployeeResource {
 
     /*Fetches all employees in DB*/
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public List<Employee> getAllEmployees() {
-        return service.getAllEmployees();
+    @Produces({MediaType.APPLICATION_JSON, MediaType.TEXT_XML})
+    public Response getAllEmployees() {
+        List<Employee> employeeList = service.getAllEmployees();
+        if(CollectionUtils.isEmpty(employeeList))
+            return Response.status(NOT_FOUND).build();
+        else
+            return Response.status(OK).entity(employeeList).build();
     }
 
     /*Fetches an employee by it's empId*/
     @GET
     @Path("/{empId}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Employee getEmployee(@PathParam("empId") int empId) {
+    @Produces({MediaType.APPLICATION_JSON, MediaType.TEXT_XML})
+    public Response getEmployee(@PathParam("empId") int empId) {
        Employee emp = service.getEmployeeById(empId);
-       return emp;
+       if(emp == null)
+           return Response.status(NOT_FOUND).build();
+       else
+           return Response.status(OK).entity(emp).build();
     }
 
     @GET
     @Path("/query")
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces({MediaType.APPLICATION_JSON, MediaType.TEXT_XML})
     public Response getEmployeesByCriteria(@QueryParam("deptId") int deptId,
                                                 @QueryParam("salary") long salary) {
         if(deptId == 0)
-            return Response.status(400).build();
+            return Response.status(BAD_REQUEST).build();
 
         List<Employee> empList = service.getEmployeesByCriteria(deptId, salary);
         if(!CollectionUtils.isEmpty(empList))
-            return Response.status(200).entity(empList).build();
+            return Response.status(OK).entity(empList).build();
         else
-            return Response.status(204).build();
+            return Response.status(NO_CONTENT).build();
 
     }
 
     /*Creates a new Employee */
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    @Produces({MediaType.APPLICATION_JSON, MediaType.TEXT_XML})
     public Response createEmployee(@RequestBody Employee emp) {
         emp = service.createEmployee(emp);
-        return Response.status(200).entity(emp).build();
+        return Response.status(CREATED).entity(emp).build();
     }
 
     /*Modify/Update an existing employee*/
     @PUT
     @Path("/{empId}")
     @Consumes(MediaType.APPLICATION_JSON)
-    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    @Produces({MediaType.APPLICATION_JSON, MediaType.TEXT_XML})
     public Response updateEmployee(@PathParam("empId") int empId, @RequestBody Employee emp) {
         emp.setEmpId(empId);
         emp = service.updateEmployee(emp);
-        return Response.status(200).entity(emp).build();
+        return Response.status(ACCEPTED).entity(emp).build();
     }
 
 
@@ -75,7 +84,7 @@ public class EmployeeResource {
     @Path("/{empId}")
     public Response deleteEmployee(@PathParam("empId") int empId) {
         service.deleteEmployeeById(empId);
-        return Response.status(200).build();
+        return Response.status(OK).build();
     }
 
     @GET

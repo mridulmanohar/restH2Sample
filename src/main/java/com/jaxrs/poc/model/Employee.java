@@ -5,10 +5,12 @@ import org.hibernate.annotations.Proxy;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 
 @Entity
 @Proxy(lazy = false)
+@XmlRootElement
 public class Employee implements Serializable {
 
     private static final long serialVersionUID = 4715038353399117027L;
