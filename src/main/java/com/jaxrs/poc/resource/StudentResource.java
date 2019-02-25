@@ -7,6 +7,8 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.ws.rs.*;
+import javax.ws.rs.container.ResourceContext;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
@@ -16,11 +18,11 @@ import static javax.ws.rs.core.Response.Status.*;
 @Path("/students")
 public class StudentResource {
 
-    @Autowired
-    StudentService service;
+    @Context
+    private ResourceContext resourceContext;
 
     @Autowired
-    MarksResource marksResource;
+    private StudentService service;
 
     /*Fetches all students in DB*/
     @GET
@@ -76,6 +78,6 @@ public class StudentResource {
 
     @Path("/{sid}/marks")
     public MarksResource getMarksResource() {
-        return marksResource;
+        return resourceContext.getResource(MarksResource.class);
     }
 }

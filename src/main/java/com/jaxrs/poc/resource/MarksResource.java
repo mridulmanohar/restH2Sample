@@ -3,7 +3,6 @@ package com.jaxrs.poc.resource;
 import com.jaxrs.poc.model.Marks;
 import com.jaxrs.poc.service.MarksService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -14,11 +13,10 @@ import java.util.List;
 
 import static javax.ws.rs.core.Response.Status.*;
 
-@Component
 public class MarksResource {
 
     @Autowired
-    MarksService service;
+    private MarksService service;
 
     @GET
     @Produces({MediaType.APPLICATION_JSON, MediaType.TEXT_XML})
