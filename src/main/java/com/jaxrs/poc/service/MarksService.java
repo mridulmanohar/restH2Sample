@@ -16,13 +16,14 @@ public class MarksService {
     @Autowired
     private MarksRepository repository;
 
-    /*
+    /* this method does not makes sense outside the context of a particular student
     public List<Marks> getAllMarks() {
         return repository.findAll();
     } */
 
     public List<Marks> getStudentMarks(int sid) {
-        return repository.getStudentMarks(sid);
+        //return repository.getStudentMarks(sid);
+        return repository.findByStudentStudentId(sid);  //using jpa fabricated method -  see repository comment
     }
 
     public Marks getMarksById(int seqId) {
